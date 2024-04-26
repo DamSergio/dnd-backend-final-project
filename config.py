@@ -18,5 +18,11 @@ class Settings(BaseModel):
     jwt_secret: str = config("JWT_SECRET_KEY")
     salt: bytes = config("SALT").encode()
 
+    # Email settings
+    email_host: str = config("SMTP_HOST")
+    email_port: int = config("SMTP_PORT", cast=int)
+    email_from: str = config("SMTP_FROM")
+    email_password: str = config("SMTP_PASSWORD")
+
 
 CONFIG = Settings()

@@ -3,6 +3,7 @@ from app.utils.password import hash_password
 from app.models.user import RegisterUser, User
 from app.constants.http_errors import auth_errors
 from app.constants.http_codes import auth_codes
+from app.utils.mailer import send_email
 
 
 async def register_user(user: RegisterUser):
@@ -35,7 +36,7 @@ async def register_user(user: RegisterUser):
     )
     await new_user.insert()
 
-    # TODO: Send email verification
+    await send_email(user.email)
 
     return JSONResponse(
         status_code=201,
