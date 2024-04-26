@@ -12,7 +12,7 @@ async def send_email(user: User):
     mail_to = user.email
     body = f"""Esto es un email automático.
     
-    Para verificar su usuario acceda al siguiente enlace: http://localhost:5173/auth/verify/{token}
+    Para verificar su usuario acceda al siguiente enlace: http://localhost:5173/signup/verify/{token}
     """
 
     message = MIMEMultipart()
