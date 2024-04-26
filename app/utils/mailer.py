@@ -1,15 +1,18 @@
-from config import CONFIG
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from config import CONFIG
+from app.utils.jwt import access_security
+from app.models.user import User
 
 
-async def send_email(mail_to: str):
+async def send_email(user: User):
     # TODO: generate a random token
-    token = "123456"
+    token = access_security.create_access_token(user.jwt_subject)
+    mail_to = user.email
     body = f"""Esto es un email automático.
     
-    Para verificar su usuario acceda al siguiente enlace: http://localhost:5173/email/verify/{token}
+    Para verificar su usuario acceda al siguiente enlace: http://localhost:5173/auth/verify/{token}
     """
 
     message = MIMEMultipart()
