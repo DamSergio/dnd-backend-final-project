@@ -19,5 +19,8 @@ email_access_security = JwtAccessBearer(
 
 async def user_from_token(token: str) -> User | None:
     """Return the user associated with a token value."""
-    payload = access_security._decode(token)
-    return await User.by_email(payload["subject"]["email"])
+    try:
+        payload = access_security._decode(token)
+        return await User.by_email(payload["subject"]["email"])
+    except Exception:
+        return None
