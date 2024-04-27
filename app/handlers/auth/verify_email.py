@@ -13,6 +13,15 @@ async def verify_email(token: str):
             content={"error": auth_errors.INVALID_TOKEN, "message": "Invalid token"},
         )
 
+    if user.verfied:
+        return JSONResponse(
+            status_code=400,
+            content={
+                "error": auth_errors.EMAIL_ALREADY_VERIFIED,
+                "message": "Email already verified",
+            },
+        )
+
     user.verfied = True
     await user.save()
 

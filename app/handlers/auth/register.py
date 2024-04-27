@@ -36,7 +36,7 @@ async def register_user(user: RegisterUser):
     )
     await new_user.insert()
 
-    await send_email(user)
+    await send_email(new_user)
 
     return JSONResponse(
         status_code=201,
