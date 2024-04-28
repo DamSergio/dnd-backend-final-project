@@ -47,6 +47,7 @@ async def login_user(user: LoginUser):
                 "username": user_in_bd.username,
                 "email": user_in_bd.email,
                 "profilePicture": user_in_bd.profile_picture,
+                "rol": user_in_bd.rol,
                 "token": token,
             },
         },
