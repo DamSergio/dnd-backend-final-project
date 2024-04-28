@@ -7,6 +7,24 @@ from app.utils.mailer import send_email
 
 
 async def register_user(user: RegisterUser):
+    """
+    Register a new user.
+
+    This endpoint is used to register a new user in the system. It performs the following steps:
+    1. Checks if the password and confirm_password fields match.
+    2. Checks if the user's email is already in use.
+    3. Hashes the user's password.
+    4. Creates a new User object with the provided information.
+    5. Inserts the new user into the database.
+    6. Sends a confirmation email to the new user.
+    7. Returns a JSON response with the status code and a message indicating the success of the registration.
+
+    Args:
+        user (RegisterUser): The user object containing the registration information.
+
+    Returns:
+        JSONResponse: A JSON response with the status code and a message indicating the success of the registration.
+    """
     if user.password != user.confirm_password:
         return JSONResponse(
             status_code=400,

@@ -6,6 +6,15 @@ from app.models.user import User
 
 
 async def verify_email(token: str):
+    """
+    Verify the email associated with the given token.
+
+    Args:
+        token (str): The verification token.
+
+    Returns:
+        JSONResponse: The response containing the verification status.
+    """
     user: User = await user_from_token(token)
     if not user:
         return JSONResponse(

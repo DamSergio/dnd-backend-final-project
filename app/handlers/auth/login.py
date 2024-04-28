@@ -7,6 +7,16 @@ from app.constants.http_codes import auth_codes
 
 
 async def login_user(user: LoginUser):
+    """
+    Endpoint to handle user login.
+    Validates the user's credentials and generates an access token upon successful login.
+
+    Args:
+        user (LoginUser): The user's login information.
+
+    Returns:
+        JSONResponse: The response containing the login status and user data.
+    """
     user_in_bd = await User.by_email(user.email)
     if not user_in_bd:
         return JSONResponse(
@@ -47,6 +57,7 @@ async def login_user(user: LoginUser):
                 "username": user_in_bd.username,
                 "email": user_in_bd.email,
                 "profilePicture": user_in_bd.profile_picture,
+                "rol": user_in_bd.rol,
                 "token": token,
             },
         },
