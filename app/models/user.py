@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from beanie import Document
-from typing import Optional
+from beanie import Document, Link
+from typing import Optional, List
 from bson import ObjectId
 from app.models.character import Character
 
@@ -26,7 +26,7 @@ class User(Document):
     profile_picture: Optional[str]
     verfied: bool = False
     rol: str = "user"
-    characters: list["Character"] = []
+    characters: List[Link[Character]]
 
     @property
     def jwt_subject(self):
