@@ -8,7 +8,7 @@ class Settings(BaseModel):
     # Uvicorn settings
     uvicorn_app: str = config("UVICORN_APP")
     host: str = config("HOST", default="127.0.0.1")
-    port: int = config("PORT", default=5000, cast=int)
+    port: int = config("PORT", default=3001, cast=int)
     reload: bool = config("RELOAD", default=True, cast=bool)
 
     # Mongo Engine settings
