@@ -12,4 +12,4 @@ async def protected_route(request: Request) -> User | None:
         return None
 
     token = auth_header.split(" ")[1]
-    return user_from_token(token)
+    return await user_from_token(token)

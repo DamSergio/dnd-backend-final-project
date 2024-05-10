@@ -26,7 +26,7 @@ class User(Document):
     profile_picture: Optional[str]
     verfied: bool = False
     rol: str = "user"
-    characters: List[Link[Character]]
+    characters: Optional[List[Link[Character]]] = []
 
     @property
     def jwt_subject(self):

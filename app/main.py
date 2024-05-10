@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.routes.auth_routes import auth_router
 from app.routes.user_routes import user_router
+from app.routes.character_routes import character_router
 from starlette.middleware.cors import CORSMiddleware
 
 from app.utils.db_connection import connect_to_mongo
@@ -22,6 +23,7 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(character_router)
 
 
 @app.get("/")
