@@ -3,7 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from config import CONFIG
 from app.utils.jwt import access_security
-from app.models.user import User
+from app.models.models_in_db import User
 
 
 async def send_email(user: User):

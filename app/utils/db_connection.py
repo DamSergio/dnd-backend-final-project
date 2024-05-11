@@ -1,7 +1,6 @@
 from fastapi import FastAPI
 from motor.motor_asyncio import AsyncIOMotorClient
-from app.models.user import User
-from app.models.character import Character
+from app.models.models_in_db import User, Character
 from config import CONFIG
 
 from contextlib import asynccontextmanager

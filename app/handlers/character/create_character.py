@@ -1,9 +1,9 @@
 from fastapi import Depends
-from beanie import Link
+from beanie import Link, WriteRules
 
 from app.utils.json_response import JSONResponse
-from app.models.character import CreateCharacter, Character
-from app.models.user import User
+from app.models.character import CreateCharacter
+from app.models.models_in_db import User, Character
 from app.middleware.protected import protected_route
 
 from app.constants.http_errors import auth_errors, character_errors
@@ -83,7 +83,7 @@ async def create_character_in_db(character_data: CreateCharacter, user: User):
     character_link = Link(new_character, document_class=Character)
     user.characters.append(character_link)
 
-    await user.save()
+    await user.save(link_rule=WriteRules.WRITE)
 
 
 def validate_character_data(character_data: CreateCharacter):

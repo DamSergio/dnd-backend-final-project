@@ -1,6 +1,4 @@
 from typing import Optional, List
-from beanie import Document
-from bson import ObjectId
 from pydantic import BaseModel
 
 
@@ -79,13 +77,3 @@ class CreateCharacter(BaseModel):
     traits: List[Trait]
     items: List[Item]
     languages: List[str]
-
-
-class Character(Document, CreateCharacter):
-    _id: ObjectId
-
-    abilities: Optional[List[str]] = []
-    speels: Optional[List[str]] = []
-
-    class Settings:
-        name = "Characters"

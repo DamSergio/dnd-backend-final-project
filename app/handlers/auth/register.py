@@ -1,6 +1,7 @@
 from app.utils.json_response import JSONResponse
 from app.utils.password import hash_password
-from app.models.user import RegisterUser, User
+from app.models.user import RegisterUser
+from app.models.models_in_db import User
 from app.constants.http_errors import auth_errors
 from app.constants.http_codes import auth_codes
 from app.utils.mailer import send_email

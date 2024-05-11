@@ -2,7 +2,7 @@ from app.utils.jwt import user_from_token
 from app.utils.json_response import JSONResponse
 from app.constants.http_errors import auth_errors
 from app.constants.http_codes import auth_codes
-from app.models.user import User
+from app.models.models_in_db import User
 
 
 async def verify_email(token: str):

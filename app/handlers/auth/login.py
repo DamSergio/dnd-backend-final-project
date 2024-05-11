@@ -1,7 +1,8 @@
 from app.utils.json_response import JSONResponse
 from app.utils.password import hash_password
 from app.utils.jwt import access_security
-from app.models.user import LoginUser, User
+from app.models.user import LoginUser
+from app.models.models_in_db import User
 from app.constants.http_errors import auth_errors
 from app.constants.http_codes import auth_codes
 

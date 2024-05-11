@@ -1,7 +1,7 @@
 from datetime import timedelta
 from fastapi_jwt import JwtAccessBearer, JwtRefreshBearer
 from config import CONFIG
-from app.models.user import User
+from app.models.models_in_db import User
 
 ACCESS_EXPIRES = timedelta(days=30)
 

@@ -1,5 +1,5 @@
 from fastapi import Request
-from app.models.user import User
+from app.models.models_in_db import User
 from app.utils.jwt import user_from_token
 
 
