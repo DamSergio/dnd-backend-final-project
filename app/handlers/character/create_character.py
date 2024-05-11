@@ -4,14 +4,14 @@ from beanie import Link, WriteRules
 from app.utils.json_response import JSONResponse
 from app.models.character import CreateCharacter
 from app.models.models_in_db import User, Character
-from app.middleware.protected import protected_route
+from app.utils.current_user import current_user
 
 from app.constants.http_errors import auth_errors, character_errors
 from app.constants.http_codes import character_codes
 
 
 async def create_character(
-    character_data: CreateCharacter, user: User = Depends(protected_route)
+    character_data: CreateCharacter, user: User = Depends(current_user)
 ):
     """
     Endpoint to handle character creation.

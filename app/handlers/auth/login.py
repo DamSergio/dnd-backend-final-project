@@ -1,6 +1,6 @@
 from app.utils.json_response import JSONResponse
 from app.utils.password import hash_password
-from app.utils.jwt import access_security
+from app.utils.jwt import access_security, refresh_security
 from app.models.user import LoginUser
 from app.models.models_in_db import User
 from app.constants.http_errors import auth_errors
@@ -47,7 +47,8 @@ async def login_user(user: LoginUser):
             },
         )
 
-    token = access_security.create_access_token(user_in_bd.jwt_subject)
+    access_token = access_security.create_access_token(user_in_bd.jwt_subject)
+    refresh_token = refresh_security.create_refresh_token(user_in_bd.jwt_subject)
 
     return JSONResponse(
         status_code=200,
@@ -59,7 +60,8 @@ async def login_user(user: LoginUser):
                 "email": user_in_bd.email,
                 "profilePicture": user_in_bd.profile_picture,
                 "rol": user_in_bd.rol,
-                "token": token,
+                "accessToken": access_token,
+                "refreshToken": refresh_token,
             },
         },
     )
