@@ -1,2 +1,6 @@
 # Description: Constants for character http errors
 INVALID_CHARACTER_DATA = "INVALID_CHARACTER_DATA"
+
+# Fetch Character
+NO_CHARACTER_FOUND = "NO CHARACTER FOUND"
+INVALID_USER = "INVALID_USER"

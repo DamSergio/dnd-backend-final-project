@@ -81,7 +81,7 @@ async def create_character_in_db(character_data: CreateCharacter, user: User):
     await new_character.insert()
 
     character_link = Link(new_character, document_class=Character)
-    user.characters.append(character_link)
+    user.characters.append(character_link.to_ref())
 
     await user.save(link_rule=WriteRules.WRITE)
 

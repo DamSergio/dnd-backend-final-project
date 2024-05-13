@@ -50,18 +50,21 @@ async def login_user(user: LoginUser):
     access_token = access_security.create_access_token(user_in_bd.jwt_subject)
     refresh_token = refresh_security.create_refresh_token(user_in_bd.jwt_subject)
 
+    user_in_bd.refresh_token = refresh_token
+    await user_in_bd.save()
+
     return JSONResponse(
         status_code=200,
         content={
             "code": auth_codes.LOGGED_IN,
             "message": "User logged in",
             "data": {
+                "id": user_in_bd.id.__str__(),
                 "username": user_in_bd.username,
                 "email": user_in_bd.email,
                 "profilePicture": user_in_bd.profile_picture,
                 "rol": user_in_bd.rol,
                 "accessToken": access_token,
-                "refreshToken": refresh_token,
             },
         },
     )

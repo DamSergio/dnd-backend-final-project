@@ -17,6 +17,8 @@ class User(Document):
     rol: str = "user"
     characters: Optional[List[Link["Character"]]] = []
 
+    refresh_token: str = ""
+
     @property
     def jwt_subject(self):
         return {"email": self.email}
@@ -32,6 +34,8 @@ class User(Document):
 class Character(Document, CreateCharacter):
     _id: ObjectId
     user: BackLink[User] = Field(original_field="characters")
+
+    level: int = 1
 
     abilities: Optional[List[str]] = []
     speels: Optional[List[str]] = []

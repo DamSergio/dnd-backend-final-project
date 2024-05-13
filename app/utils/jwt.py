@@ -4,7 +4,7 @@ from config import CONFIG
 from app.models.models_in_db import User
 
 ACCESS_EXPIRES = timedelta(minutes=15)
-REFRESH_EXPIRES = timedelta(days=1)
+REFRESH_EXPIRES = timedelta(days=30)
 EMAIL_CONFIRMATION_EXPIRES = timedelta(days=1)
 
 access_security = JwtAccessBearer(
