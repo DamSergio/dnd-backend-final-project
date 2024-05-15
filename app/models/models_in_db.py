@@ -36,9 +36,10 @@ class Character(Document, CreateCharacter):
     user: BackLink[User] = Field(original_field="characters")
 
     level: int = 1
+    picture: Optional[str] = ""
 
     abilities: Optional[List[str]] = []
-    speels: Optional[List[str]] = []
+    spells: Optional[List[str]] = []
 
     class Settings:
         name = "Characters"

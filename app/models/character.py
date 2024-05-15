@@ -1,5 +1,6 @@
 from typing import Optional, List
 from pydantic import BaseModel
+from fastapi import UploadFile, File
 
 
 class Race(BaseModel):
@@ -45,6 +46,10 @@ class Coins(BaseModel):
     pp: int
 
 
+class EditPicture(BaseModel):
+    picture: UploadFile = File(...)
+
+
 class CreateCharacter(BaseModel):
     name: str
     gender: str
@@ -63,6 +68,8 @@ class CreateCharacter(BaseModel):
     character_class: Class
 
     hit_points: int
+    hit_points_base: int
+    hit_points_per_level: int
     armor_class: int
     speed: int
     saving_throws: List[str] = []

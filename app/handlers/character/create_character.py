@@ -76,6 +76,7 @@ async def create_character_in_db(character_data: CreateCharacter, user: User):
         traits=character_data.traits,
         items=character_data.items,
         languages=character_data.languages,
+        picture=character_data.character_class.icon,
     )
 
     await new_character.insert()
