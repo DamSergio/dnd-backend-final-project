@@ -1,6 +1,6 @@
 from beanie import Document, Link, BackLink
 from typing import Optional, List
-from pydantic import Field
+from pydantic import Field, BaseModel
 from bson import ObjectId
 
 from app.models.character import CreateCharacter
@@ -26,6 +26,7 @@ class User(Document):
     invitations: Optional[List[Invitation]] = []
 
     refresh_token: str = ""
+    socket_id: Optional[str] = ""
 
     @property
     def jwt_subject(self):
@@ -34,6 +35,10 @@ class User(Document):
     @classmethod
     async def by_email(cls, email: str):
         return await cls.find_one({"email": email})
+
+    @classmethod
+    async def by_socket_id(cls, socket_id: str):
+        return await cls.find_one({"socket_id": socket_id})
 
     class Settings:
         name = "Users"
@@ -55,11 +60,21 @@ class Character(Document, CreateCharacter):
         name = "Characters"
 
 
+class Roll(BaseModel):
+    dice: str
+    result: int
+    user_id: str
+    username: str
+    profile_picture: str
+
+
 class Campaign(Document, CreateCampaign):
     _id: ObjectId
 
     dungeon_master: Link["User"]
     players: Optional[List[Link[Character]]] = []
+
+    rolls: Optional[List[Roll]] = []
 
     class Settings:
         name = "Campaigns"

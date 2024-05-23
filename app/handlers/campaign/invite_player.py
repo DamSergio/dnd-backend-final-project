@@ -7,6 +7,8 @@ from app.utils.current_user import current_user
 from app.constants.http_errors import auth_errors, campaign_errors
 from app.constants.http_codes import campaign_codes
 
+from app.socket.socket import sio
+
 
 async def invite_player(req: Request, user: User = Depends(current_user)):
     """"""
@@ -34,7 +36,7 @@ async def invite_player(req: Request, user: User = Depends(current_user)):
                 },
             )
 
-        if campaign.dungeon_master.email != player_email:
+        if campaign.dungeon_master.email != user.email:
             return JSONResponse(
                 status_code=403,
                 content={
@@ -81,6 +83,17 @@ async def invite_player(req: Request, user: User = Depends(current_user)):
             }
         )
         await player.save()
+
+        if player.socket_id:
+            await sio.emit(
+                event="new_invitation",
+                data={
+                    "campaign_id": campaign_id,
+                    "campaign_name": campaign.name,
+                    "dungeon_master": user.username,
+                },
+                to=player.socket_id,
+            )
 
         return JSONResponse(
             status_code=200,
