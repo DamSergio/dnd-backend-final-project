@@ -53,6 +53,10 @@ async def login_user(user: LoginUser):
     user_in_bd.refresh_token = refresh_token
     await user_in_bd.save()
 
+    invitations = []
+    for invitation in user_in_bd.invitations:
+        invitations.append(invitation.model_dump())
+
     return JSONResponse(
         status_code=200,
         content={
@@ -65,6 +69,7 @@ async def login_user(user: LoginUser):
                 "profilePicture": user_in_bd.profile_picture,
                 "rol": user_in_bd.rol,
                 "accessToken": access_token,
+                "invitations": invitations,
             },
         },
     )

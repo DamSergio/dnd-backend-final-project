@@ -28,7 +28,7 @@ async def get_user_characters(user: User = Depends(current_user)):
     characters = []
     for character_ref in user.characters:
         character = await character_ref.fetch()
-        character_data = character.model_dump()
+        character_data = character.model_dump(exclude=["user", "campaigns"])
         character_data["user"] = user.id.__str__()
         characters.append(character_data)
 

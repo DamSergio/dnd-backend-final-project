@@ -4,6 +4,8 @@ from pydantic import Field
 from bson import ObjectId
 
 from app.models.character import CreateCharacter
+from app.models.campaign import CreateCampaign
+from app.models.invitation import Invitation
 
 
 class User(Document):
@@ -15,7 +17,13 @@ class User(Document):
     profile_picture: Optional[str]
     verfied: bool = False
     rol: str = "user"
+
     characters: Optional[List[Link["Character"]]] = []
+    my_campaigns: Optional[BackLink["Campaign"]] = Field(
+        original_field="dungeon_master"
+    )
+
+    invitations: Optional[List[Invitation]] = []
 
     refresh_token: str = ""
 
@@ -41,5 +49,17 @@ class Character(Document, CreateCharacter):
     abilities: Optional[List[str]] = []
     spells: Optional[List[str]] = []
 
+    campaigns: Optional[List[BackLink["Campaign"]]] = Field(original_field="players")
+
     class Settings:
         name = "Characters"
+
+
+class Campaign(Document, CreateCampaign):
+    _id: ObjectId
+
+    dungeon_master: Link["User"]
+    players: Optional[List[Link[Character]]] = []
+
+    class Settings:
+        name = "Campaigns"

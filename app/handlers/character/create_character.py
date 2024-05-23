@@ -64,6 +64,8 @@ async def create_character_in_db(character_data: CreateCharacter, user: User):
         character_race=character_data.character_race,
         character_class=character_data.character_class,
         hit_points=character_data.hit_points,
+        hit_points_base=character_data.hit_points_base,
+        hit_points_per_level=character_data.hit_points_per_level,
         armor_class=character_data.armor_class,
         speed=character_data.speed,
         saving_throws=character_data.saving_throws,

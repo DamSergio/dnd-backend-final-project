@@ -1,11 +1,7 @@
-from fastapi import Depends
-
 from app.utils.json_response import JSONResponse
 from app.models.models_in_db import User
 from app.models.models_in_db import Character
-from app.utils.current_user import current_user
 
-from app.constants.http_errors import auth_errors
 from app.constants.http_errors import character_errors
 from app.constants.http_codes import character_codes
 
@@ -33,6 +29,9 @@ async def get_one(id: str):
         content={
             "code": character_codes.CHARACTER_RETRIEVED,
             "message": "Character retrieved successfully",
-            "data": {**character.model_dump(exclude={"user"}), "user": user_id},
+            "data": {
+                **character.model_dump(exclude=["user", "campaigns"]),
+                "user": user_id,
+            },
         },
     )

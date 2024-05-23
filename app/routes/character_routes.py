@@ -9,6 +9,12 @@ from app.handlers.character.edit_languages import edit_languages
 from app.handlers.character.edit_characteristics import edit_characteristics
 from app.handlers.character.edit_stats import edit_stats
 from app.handlers.character.edit_personality import edit_personality
+from app.handlers.character.edit_items import edit_items
+from app.handlers.character.edit_coins import edit_coins
+from app.handlers.character.edit_cantrips import edit_cantrips
+from app.handlers.character.edit_spells import edit_spells
+
+from app.handlers.character.delete_character import delete_character
 
 
 character_router = APIRouter(prefix="/character", tags=["Character"])
@@ -25,3 +31,10 @@ character_router.add_api_route(
 )
 character_router.add_api_route("/{id}/stats", edit_stats, methods=["PATCH"])
 character_router.add_api_route("/{id}/personality", edit_personality, methods=["PATCH"])
+character_router.add_api_route("/{id}/items", edit_items, methods=["PATCH"])
+character_router.add_api_route("/{id}/coins", edit_coins, methods=["PATCH"])
+character_router.add_api_route("/{id}/cantrips", edit_cantrips, methods=["PATCH"])
+character_router.add_api_route("/{id}/spells", edit_spells, methods=["PATCH"])
+
+# Delete character
+character_router.add_api_route("/{id}/delete", delete_character, methods=["DELETE"])

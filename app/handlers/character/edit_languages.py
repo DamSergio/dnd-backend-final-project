@@ -20,13 +20,23 @@ async def edit_languages(req: Request, user: User = Depends(current_user)):
         )
 
     id = req.path_params["id"]
-    character = await Character.get(id)
+    character = await Character.get(id, fetch_links=True)
     if not character:
         return JSONResponse(
             status_code=404,
             content={
                 "error": character_errors.NO_CHARACTER_FOUND,
                 "message": "Character not found.",
+            },
+        )
+
+    character_user: User = character.user
+    if character_user.id != user.id and user.rol != "admin":
+        return JSONResponse(
+            status_code=401,
+            content={
+                "error": auth_errors.NOT_ENOUGHT_PERMISSIONS,
+                "message": "No tienes permisos",
             },
         )
 
