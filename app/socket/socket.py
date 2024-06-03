@@ -12,6 +12,9 @@ socket_app = socketio.ASGIApp(sio)
 @sio.on("connect")
 async def connect(sid, environ):
     user_id: str = environ["QUERY_STRING"].split("=")[1].split("&")[0]
+    if not user_id:
+        return
+
     user = await User.get(user_id)
     user.socket_id = sid
     await user.save()

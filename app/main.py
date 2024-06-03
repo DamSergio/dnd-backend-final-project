@@ -1,11 +1,11 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 from app.routes.auth_routes import auth_router
 from app.routes.user_routes import user_router
 from app.routes.character_routes import character_router
 from app.routes.campaign_routes import campaign_router
 from app.socket.socket import socket_app
-from starlette.middleware.cors import CORSMiddleware
 
 from app.utils.db_connection import connect_to_mongo
 
