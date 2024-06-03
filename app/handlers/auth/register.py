@@ -58,7 +58,7 @@ async def register_user(user: RegisterUser):
     await send_email(new_user)
 
     return JSONResponse(
-        status_code=201,
+        status_code=200,
         content={
             "code": auth_codes.USER_CREATED,
             "message": "User created",

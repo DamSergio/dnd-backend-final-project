@@ -37,6 +37,11 @@ class User(Document):
         return await cls.find_one({"email": email})
 
     @classmethod
+    async def delete_by_email(cls, email: str):
+        user = await cls.by_email(email)
+        await user.delete()
+
+    @classmethod
     async def by_socket_id(cls, socket_id: str):
         return await cls.find_one({"socket_id": socket_id})
 
